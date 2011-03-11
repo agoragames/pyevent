@@ -5,18 +5,34 @@
 from distutils.core import setup, Extension
 import glob, os, sys
 
-if glob.glob('/usr/lib/libevent.*'):
-    print 'found system libevent for', sys.platform
-    event = Extension(name='event',
-                       sources=[ 'event.c' ],
-                       libraries=[ 'event' ])
-elif glob.glob('%s/lib/libevent.*' % sys.prefix):
-    print 'found installed libevent in', sys.prefix
-    event = Extension(name='event',
-                       sources=[ 'event.c' ],
-                       include_dirs=[ '%s/include' % sys.prefix ],
-                       library_dirs=[ '%s/lib' % sys.prefix ],
-                       libraries=[ 'event' ])
+# Give preference to libevent stored where python is, such as virtual environments
+if glob.glob('%s/lib/libevent.*' % sys.prefix):
+  print 'found installed libevent in', sys.prefix
+  event = Extension(name='event',
+                     sources=[ 'event.c' ],
+                     include_dirs=[ '%s/include' % sys.prefix ],
+                     library_dirs=[ '%s/lib' % sys.prefix ],
+                     libraries=[ 'event' ])
+
+# Give preference to local libevent
+elif glob.glob('/usr/local/lib/libevent.*'):
+  print 'found installed libevent in /usr/local/lib'
+  event = Extension(name='event',
+                     sources=[ 'event.c' ],
+                     include_dirs=[ '/usr/local/include' ],
+                     library_dirs=[ '/usr/local/lib' ],
+                     libraries=[ 'event' ])
+
+# Look for system libevent
+elif glob.glob('/usr/lib/libevent.*'):
+  print 'found system libevent for', sys.platform
+  event = Extension(name='event',
+                     sources=[ 'event.c' ],
+                     libraries=[ 'event' ],
+                     include_dirs=['/usr/include'],
+                     library_dirs=['usr/lib'])
+
+
 else:
     ev_dir = None
     l = glob.glob('../libevent*')
@@ -53,13 +69,13 @@ else:
                       extra_objects=ev_extobjs,
                       libraries=ev_libraries)
 
-setup(name='event',
-      version='0.4',
-      author='Dug Song',
-      author_email='dugsong@monkey.org',
-      url='http://monkey.org/~dugsong/pyevent/',
+setup(name='event-agora',
+      version='0.4.1',
+      author='Dug Song, Aaron Westendorf',
+      author_email='dugsong@monkey.org, aaron@agoragames.com',
+      url='https://github.com/agoragames/pyevent',
       description='event library',
       long_description="""This module provides a mechanism to execute a function when a specific event on a file handle, file descriptor, or signal occurs, or after a given time has passed.""",
       license='BSD',
-      download_url='http://monkey.org/~dugsong/pyevent/',
+      download_url='https://github.com/agoragames/pyevent',
       ext_modules = [ event ])

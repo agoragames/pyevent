@@ -14,7 +14,17 @@ Optional (only required to regenerate event.c if you modify *.pyx):
 
 	- Cython-0.10.3 or newer
 
+Original SVN repository:
+
+  http://monkey.org/~dugsong/pyevent/
+
 -d.
 
 ---
 http://monkey.org/~dugsong/
+
+
+This is the repository for "event-agora", a PyPi package of pyevent that is
+maintained by Agora Games (https://github.com/agoragames). The goal is to ensure
+that any packages which rely on cross-platform libevent support have access to
+a maintained version of pyevent.

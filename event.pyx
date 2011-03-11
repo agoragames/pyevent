@@ -16,12 +16,13 @@ or after a given time has passed.
 """
 
 __author__ = ( 'Dug Song <dugsong@monkey.org>',
-               'Martin Murray <mmurray@monkey.org>' )
+               'Martin Murray <mmurray@monkey.org>',
+               'Aaron Westendorf <aaron@agoragames.com>' )
 __copyright__ = ( 'Copyright (c) 2004 Dug Song',
                   'Copyright (c) 2003 Martin Murray' )
 __license__ = 'BSD'
-__url__ = 'http://monkey.org/~dugsong/pyevent/'
-__version__ = '0.4'
+__url__ = 'https://github.com/agoragames/pyevent'
+__version__ = '0.4.1'
 
 import sys
 
