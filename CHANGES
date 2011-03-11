@@ -1,0 +1,31 @@
+- use event_loopexit() to break on exception, introduced in
+  libevent-1.4.1-beta, from Luciano Bello <luciano@debian.org>
+
+- don't restrict MacOS X to select() (issue 17)
+
+- fix exception handling in loop(), from Denis Bilenko
+
+- add default WSGI handler, from Phoenix Sol <phoenix@burninglabs.com>
+
+event-0.4:
+
+- fix handling of the Global Interpreter Lock; events now work with threads!
+  (event base support is next)
+
+- fix Leopard build (issue 8)
+
+- support basic bufferevent API (issue 10)
+
+- support basic evdns API
+
+- update loop() and dispatch() to return status, as requested by
+  edfaulkner@gmail.com
+
+event-0.3:
+
+- fix reference counting for callback arguments passed via
+  "simple" interface
+
+- fix self decref for persistent signal event
+
+# $Id: CHANGES 62 2010-03-08 14:35:41Z dugsong $

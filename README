@@ -1,0 +1,20 @@
+
+pyevent
+-------
+
+Python extension module for Niels Provos' libevent:
+
+	http://monkey.org/~provos/libevent/
+
+Build dependencies:
+
+	- libevent-1.4.1-beta or newer
+
+Optional (only required to regenerate event.c if you modify *.pyx):
+
+	- Cython-0.10.3 or newer
+
+-d.
+
+---
+http://monkey.org/~dugsong/
