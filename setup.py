@@ -42,7 +42,7 @@ else:
             ev_dir = dir
             break
     if not ev_dir:
-        raise "couldn't find libevent installation or build directory"
+        raise OSError("couldn't find libevent installation or build directory")
     
     print 'found libevent build directory', ev_dir
     ev_srcs = [ 'event.c' ]
