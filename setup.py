@@ -70,7 +70,7 @@ else:
                       libraries=ev_libraries)
 
 setup(name='event-agora',
-      version='0.4.1',
+      version='0.4.2',
       author='Dug Song, Aaron Westendorf',
       author_email='dugsong@monkey.org, aaron@agoragames.com',
       url='https://github.com/agoragames/pyevent',
