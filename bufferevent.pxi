@@ -1,19 +1,10 @@
 
 # bufferevent
-cdef extern from "event.h":
-    struct evbuffer:
-        char *buf "buffer"
-        int off
-    struct event_watermark:
-        int low
-        int high
-    struct bufev_t "bufferevent":
-        evbuffer *input
-        event_watermark wm_read
-        event_watermark wm_write
 
-    int evbuffer_drain(evbuffer *b, int size)
+cdef struct evbuffer
+cdef struct bufev_t
     
+cdef extern from "event.h":
     bufev_t *bufferevent_new(int fd, void (*readcb)(bufev_t *b, void *arg),
                              void (*writecb)(bufev_t *b, void *arg),
                              void (*errorcb)(bufev_t *b, short e, void *arg),
@@ -104,22 +95,6 @@ cdef class bufferevent:
         """
         bufferevent_disable(self.bufev, evtype)
 
-    def read(self, int size=-1):
-        """Read data from a bufferevent.
-
-        Optional arguments:
-
-        size  -- number of bytes to read
-        """
-        if size < 0:
-            size = self.bufev.input.off
-        else:
-            size = min(self.bufev.input.off, size)
-        
-        buf = PyString_FromStringAndSize(self.bufev.input.buf, size)
-        evbuffer_drain(self.bufev.input, size)
-        return buf
-    
     def write(self, buf):
         """Write data to a bufferevent. The data is appended to the output
         buffer and written to the handle automatically as it becomes available
