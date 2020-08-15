@@ -7,7 +7,7 @@ import glob, os, sys
 
 # Give preference to libevent stored where python is, such as virtual environments
 if glob.glob('%s/lib/libevent.*' % sys.prefix):
-  print 'found installed libevent in', sys.prefix
+  print('found installed libevent in {}'.format(sys.prefix))
   event = Extension(name='event',
                      sources=[ 'event.c' ],
                      include_dirs=[ '%s/include' % sys.prefix ],
@@ -16,7 +16,7 @@ if glob.glob('%s/lib/libevent.*' % sys.prefix):
 
 # Give preference to local libevent
 elif glob.glob('/usr/local/lib/libevent.*'):
-  print 'found installed libevent in /usr/local/lib'
+  print('found installed libevent in /usr/local/lib')
   event = Extension(name='event',
                      sources=[ 'event.c' ],
                      include_dirs=[ '/usr/local/include' ],
@@ -25,13 +25,20 @@ elif glob.glob('/usr/local/lib/libevent.*'):
 
 # Look for system libevent
 elif glob.glob('/usr/lib/libevent.*'):
-  print 'found system libevent for', sys.platform
+  print('found system libevent for {}'.format(sys.platform))
   event = Extension(name='event',
                      sources=[ 'event.c' ],
                      libraries=[ 'event' ],
                      include_dirs=['/usr/include'],
                      library_dirs=['usr/lib'])
 
+elif glob.glob('/usr/lib64/libevent.*'):
+  print('found system libevent for {}'.format(sys.platform))
+  event = Extension(name='event',
+                     sources=[ 'event.c' ],
+                     libraries=[ 'event' ],
+                     include_dirs=['/usr/include'],
+                     library_dirs=['usr/lib64'])
 
 else:
     ev_dir = None
@@ -44,7 +51,7 @@ else:
     if not ev_dir:
         raise OSError("couldn't find libevent installation or build directory")
     
-    print 'found libevent build directory', ev_dir
+    print('found libevent build directory {}'.format(ev_dir))
     ev_srcs = [ 'event.c' ]
     ev_incdirs = [ ev_dir ]
     ev_extargs = []
